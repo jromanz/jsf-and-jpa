@@ -5,38 +5,54 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import org.hibernate.Session;
+
 public class JPAUtil {
 
-	private static final String PERSISTENCE_UNIT = "PRUEBA_JPA";
-	private static ThreadLocal<EntityManager> threadEntityManager = new ThreadLocal<EntityManager>();
-	private static EntityManagerFactory emf;
+	private static final String PERSISTENCE_UNIT_NAME = "PRUEBA_JPA";
+	private static ThreadLocal<EntityManager> manager = new ThreadLocal<EntityManager>();
+	private static EntityManagerFactory factory;
+
+	private JPAUtil() {
+	}
 
 	public static EntityManager getEntityManager() {
-		if (emf == null) {
-			emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+		if (JPAUtil.factory == null) {
+			JPAUtil.factory = Persistence
+					.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		}
-		EntityManager entityManager = threadEntityManager.get();
-		if (entityManager == null || !entityManager.isOpen()) {
-			entityManager = emf.createEntityManager();
-			JPAUtil.threadEntityManager.set(entityManager);
+		EntityManager m = JPAUtil.manager.get();
+		if (m == null) {
+			m = JPAUtil.factory.createEntityManager();
+			JPAUtil.manager.set(m);
 		}
-		return entityManager;
+		return m;
+	}
+
+	public static void evictCache(EntityManager em, String region) {
+		((Session) em.getDelegate()).getSessionFactory().getCache()
+				.evictQueryRegion(region);
 	}
 
 	public static void closeEntityManager() {
-		EntityManager em = threadEntityManager.get();
-		if (em != null) {
-			EntityTransaction transaction = em.getTransaction();
-			if(transaction.isActive()){
-				transaction.commit();
+		EntityManager m = JPAUtil.manager.get();
+		if (m != null) {
+			EntityTransaction t = m.getTransaction();
+			if (t.isActive()) { // TODO
+				// CoreLog.getInstance()
+				// .getLog()
+				// .warn("EntityManager contains an active transaction, commiting transaction");
+				//t.commit();
 			}
-			em.close();
-			threadEntityManager.set(null);
+			m.flush();
+			m.close();
+			JPAUtil.manager.set(null);
 		}
 	}
-	
-	public static void closeEntityManagerFactory(){
+
+	public static void closeEntityManagerFactory() {
 		closeEntityManager();
-		emf.close();
+		JPAUtil.factory.close();
 	}
+
 }

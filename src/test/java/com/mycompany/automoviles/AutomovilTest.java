@@ -21,7 +21,6 @@ import com.mycompany.automoviles.entidades.Modelo;
 import com.mycompany.automoviles.util.JPAUtil;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
 
 
 @RunWith(Arquillian.class)
@@ -51,7 +50,7 @@ public class AutomovilTest {
 		Modelo modelo = new Modelo();
 		modelo.setDescripcion("Nuevo modelo Hyundai con 4 puertas y airbag");
 		modelo.setPotencia(1200);
-		modelo.setMarcaId(marca);
+		modelo.setMarca(marca);
 
 		List<Modelo> modeloList = new ArrayList<Modelo>();
 		modeloList.add(modelo);
@@ -81,7 +80,7 @@ public class AutomovilTest {
 		assertNotNull(automoviles);
 		for (Automovil automovil : automoviles) {
 			System.out
-					.println(automovil.getModeloId().getMarcaId().getNombre());
+					.println(automovil.getModeloId().getMarca().getNombre());
 		}
 	}
 }

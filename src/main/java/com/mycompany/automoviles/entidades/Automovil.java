@@ -1,8 +1,9 @@
 package com.mycompany.automoviles.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,17 +14,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.QueryHint;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Automovil.findAll",query="select a from Automovil a")
+	@NamedQuery(name=Automovil.LISTAR_DESTACADOS, query="select a from Automovil a",
+			hints={
+			@QueryHint(name="org.hibernate.cacheable",value="true"),
+			@QueryHint(name="org.hibernate.cacheRegion",value=Automovil.LISTAR_DESTACADOS)
+	})
 })
+@Cacheable
 public class Automovil implements Serializable {
 
 	private static final long serialVersionUID = 7032199550439391807L;
+	public static final String LISTAR_DESTACADOS="Automovil.buscarDestacados";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
@@ -44,6 +56,13 @@ public class Automovil implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="modelo_id",referencedColumnName="id")
 	private Modelo modeloId;
+	
+	@OneToMany(mappedBy="automovil")
+	@LazyCollection(LazyCollectionOption.EXTRA)
+	private List<Foto> fotos;
+	
+	@ManyToOne
+	private Color color;
 	
 	public Automovil() {
 	}
@@ -117,6 +136,23 @@ public class Automovil implements Serializable {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+	
+	public List<Foto> getFotos() {
+		return fotos;
+	}
+
+	public void setFotos(List<Foto> fotos) {
+		this.fotos = fotos;
+	}
+
+	
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package com.mycompany.automoviles.entidades;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Cacheable
 @NamedQueries({
 	@NamedQuery(name="Modelo.findAll",query="select m from Modelo m")
 })
@@ -38,7 +39,7 @@ public class Modelo implements Serializable {
 	private Collection<Automovil> automoviles;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="marca_id",referencedColumnName="id")
-	private Marca marcaId;
+	private Marca marca;
 
 	
 	public Modelo() {
@@ -79,12 +80,12 @@ public class Modelo implements Serializable {
 		this.potencia = potencia;
 	}
 
-	public Marca getMarcaId() {
-		return marcaId;
+	public Marca getMarca() {
+		return marca;
 	}
 
-	public void setMarcaId(Marca marca) {
-		this.marcaId = marca;
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
 
 	@Override
@@ -115,7 +116,7 @@ public class Modelo implements Serializable {
 	@Override
 	public String toString() {
 		return "Modelo [id=" + id + ", descripcion=" + descripcion
-				+ ", potencia=" + potencia + ", marca=" + marcaId + "]";
+				+ ", potencia=" + potencia + ", marca=" + marca + "]";
 	}
 
 }
