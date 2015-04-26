@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.ScrollableResults;
-import org.hibernate.ejb.QueryImpl;
+import org.hibernate.jpa.internal.QueryImpl;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 

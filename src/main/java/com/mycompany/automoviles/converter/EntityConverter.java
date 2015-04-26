@@ -36,7 +36,9 @@ public class EntityConverter implements Converter {
 		
 		try {
 			String[] values = string.split("-");
-			return JPAUtil.getEntityManager().find(Class.forName(values[0]), Long.valueOf(values[1]));
+			Object obj = JPAUtil.getEntityManager().find(Class.forName(values[0]), Long.valueOf(values[1]));
+			System.out.println(obj);
+			return obj;
 		} catch (Exception e) {
 			logger.error("Error al convertir String en entidad", e);
 			return null;

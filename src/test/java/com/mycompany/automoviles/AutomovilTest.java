@@ -63,7 +63,7 @@ public class AutomovilTest {
 		automovil.setKilometraje(50);
 		automovil.setPrecio(61000.99);
 		automovil.setObservaciones("Tengan cuidado con este auto");
-		automovil.setModeloId(modelo);
+		automovil.setModelo(modelo);
 		
 		em.persist(automovil);
 		
@@ -80,7 +80,7 @@ public class AutomovilTest {
 		assertNotNull(automoviles);
 		for (Automovil automovil : automoviles) {
 			System.out
-					.println(automovil.getModeloId().getMarca().getNombre());
+					.println(automovil.getModelo().getMarca().getNombre());
 		}
 	}
 }

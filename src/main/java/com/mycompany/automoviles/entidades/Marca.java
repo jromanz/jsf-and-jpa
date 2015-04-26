@@ -12,12 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
+@Table(name="t_marca")
 @Cacheable
 @NamedQueries({ 
 	@NamedQuery(name = "Marca.findAll", query = "select m from Marca m") 
@@ -41,6 +43,16 @@ public class Marca implements Serializable {
 
 	public Marca() {
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 
 	public Marca(Long id) {
 		super();

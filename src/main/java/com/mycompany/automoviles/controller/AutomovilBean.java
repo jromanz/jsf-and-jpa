@@ -1,14 +1,10 @@
 package com.mycompany.automoviles.controller;
 
-import com.mycompany.automoviles.entidades.Automovil;
-
-import com.mycompany.automoviles.entidades.Marca;
-import com.mycompany.automoviles.entidades.Modelo;
-import com.mycompany.automoviles.util.JPAUtil;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -16,6 +12,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
+import com.mycompany.automoviles.entidades.Automovil;
+import com.mycompany.automoviles.entidades.Marca;
+import com.mycompany.automoviles.entidades.Modelo;
+import com.mycompany.automoviles.util.JPAUtil;
 
 @ManagedBean
 @ViewScoped

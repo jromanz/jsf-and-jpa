@@ -15,9 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name="t_modelo")
 @Cacheable
 @NamedQueries({
 	@NamedQuery(name="Modelo.findAll",query="select m from Modelo m")
@@ -35,7 +37,7 @@ public class Modelo implements Serializable {
 	private String descripcion;
 	@Column(name="potencia")
 	private Integer potencia;
-	@OneToMany(mappedBy="modeloId")
+	@OneToMany(mappedBy="modelo")
 	private Collection<Automovil> automoviles;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="marca_id",referencedColumnName="id")

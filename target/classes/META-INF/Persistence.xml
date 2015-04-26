@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence                  
-			http://java.sun.com/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="PRUEBA_JPA" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="PRUEBA_JPA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider> 
+		<!-- 
+		<jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
+			<exclude-unlisted-classes>false</exclude-unlisted-classes> -->
+		<class>com.mycompany.automoviles.entidades.Automovil</class>
+		<class>com.mycompany.automoviles.entidades.Marca</class>
+		<class>com.mycompany.automoviles.entidades.Modelo</class>
+		<class>com.mycompany.automoviles.entidades.Foto</class>
+		<class>com.mycompany.automoviles.entidades.Color</class>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-		<validation-mode>AUTO</validation-mode>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jsfandjpa" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="mysql" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.hbm2ddl.auto" value="update" /> 
+			<property name="hibernate.show_sql" value="true" /> 
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/jsfandjpa" /> 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" /> 
+			<property name="javax.persistence.jdbc.user" value="root" /> 
+			<property name="javax.persistence.jdbc.password" value="mysql" /> 
 			<property name="hibernate.cache.user_query_cache" value="true" />
-			<property name="hibernate.cache.region.factory_class"
-				value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
-			<!-- <property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/> -->
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+			<!-- 
+				
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/> 
+				
+			<property name="hibernate.transaction.jta.platform"
+				value="org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform" />
+				
+				-->
 		</properties>
 	</persistence-unit>
 </persistence>    

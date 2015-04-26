@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.QueryHint;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -23,6 +24,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
+@Table(name="t_automovil")
 @NamedQueries({
 	@NamedQuery(name=Automovil.LISTAR_DESTACADOS, query="select a from Automovil a",
 			hints={
@@ -55,7 +57,7 @@ public class Automovil implements Serializable {
 	private Integer kilometraje;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="modelo_id",referencedColumnName="id")
-	private Modelo modeloId;
+	private Modelo modelo;
 	
 	@OneToMany(mappedBy="automovil")
 	@LazyCollection(LazyCollectionOption.EXTRA)
@@ -90,12 +92,12 @@ public class Automovil implements Serializable {
 		this.id = id;
 	}
 
-	public Modelo getModeloId() {
-		return modeloId;
+	public Modelo getModelo() {
+		return modelo;
 	}
 
-	public void setModeloId(Modelo modeloId) {
-		this.modeloId = modeloId;
+	public void setModelo(Modelo modeloId) {
+		this.modelo = modeloId;
 	}
 
 	public Integer getAnoFabricacion() {

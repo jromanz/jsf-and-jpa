@@ -3,8 +3,10 @@ package com.mycompany.automoviles.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="t_color")
 public class Color {
 	@Id
 	@GeneratedValue
